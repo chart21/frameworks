@@ -17,6 +17,7 @@ def gen_mult3_input(n) :
     bits = int(n/3)
     xs = get_rand_list(bits,3)
     ys = get_rand_list(bits,3)
+
     fx = open("data/mult3/%d.1.dat"%n, 'w')
     fy = open("data/mult3/%d.2.dat"%n, 'w')
     for i in range(3):
@@ -27,6 +28,109 @@ def gen_mult3_input(n) :
     result = functools.reduce(mul, [x+y for x,y in zip(xs,ys)], 1)
     print("expected value: %d"%result)
     print("      l binary: {0:b}".format(result))
+
+
+def gen_setIntersect_input(n, num_inputs) :
+    product = 1
+    bits = int(n)
+    xs = get_rand_list(bits,num_inputs)
+    ys = get_rand_list(bits,num_inputs)
+    #xs = [4,55,89]
+    #ys = [55,22,4]
+    fx = open("data/setIntersect/%d.1.dat"%n, 'w')
+    fy = open("data/setIntersect/%d.2.dat"%n, 'w')
+    for i in range(num_inputs):
+        fx.write("%d\n"%xs[i])
+        fy.write("%d\n"%ys[i])
+    fx.close()
+    fy.close()
+    result = [] 
+    for i in range(num_inputs):
+        result.append(0)
+        for j in range(num_inputs):
+            if xs[i] == ys[j]:
+                result[i] = xs[i]   
+    print("Expected value:")
+    for i in range(len(result)): 
+        #print("expected value: %d"%e)
+        print("index " + str(i) + ": " + str(result[i]))
+
+
+def gen_setIntersectAlt_input(n, num_inputs) :
+    product = 1
+    bits = int(n)
+    xs = get_rand_list(bits,num_inputs)
+    ys = get_rand_list(bits,num_inputs)
+    #xs = [4,55,89]
+    #ys = [55,22,4]
+    fx = open("data/setIntersectAlt/%d.1.dat"%n, 'w')
+    fy = open("data/setIntersectAlt/%d.2.dat"%n, 'w')
+    for i in range(num_inputs):
+        fx.write("%d\n"%xs[i])
+        fy.write("%d\n"%ys[i])
+    fx.close()
+    fy.close()
+    result = [] 
+    for i in range(num_inputs):
+        result.append(0)
+        for j in range(num_inputs):
+            if xs[i] == ys[j]:
+                result[i] = xs[i]   
+    print("Expected value:")
+    for i in range(len(result)): 
+        #print("expected value: %d"%e)
+        print("index " + str(i) + ": " + str(result[i]))
+
+def gen_setIntersectAlt2_input(n, num_inputs) :
+    product = 1
+    bits = int(n)
+    xs = get_rand_list(bits,num_inputs)
+    ys = get_rand_list(bits,num_inputs)
+    #xs = [4,55,89]
+    #ys = [55,22,4]
+    fx = open("data/setIntersectAlt2/%d.1.dat"%n, 'w')
+    fy = open("data/setIntersectAlt2/%d.2.dat"%n, 'w')
+    for i in range(num_inputs):
+        fx.write("%d\n"%xs[i])
+        fy.write("%d\n"%ys[i])
+    fx.close()
+    fy.close()
+    result = [] 
+    for i in range(num_inputs):
+        result.append(0)
+        for j in range(num_inputs):
+            if xs[i] == ys[j]:
+                result[i] = xs[i]   
+    print("Expected value:")
+    for i in range(len(result)): 
+        #print("expected value: %d"%e)
+        print("index " + str(i) + ": " + str(result[i]))
+
+
+def gen_setIntersectAlt3_input(n, num_inputs) :
+    product = 1
+    bits = int(n)
+    xs = get_rand_list(bits,num_inputs)
+    ys = get_rand_list(bits,num_inputs)
+    #xs = [4,55,89]
+    #ys = [55,22,4]
+    fx = open("data/setIntersectAlt3/%d.1.dat"%n, 'w')
+    fy = open("data/setIntersectAlt3/%d.2.dat"%n, 'w')
+    for i in range(num_inputs):
+        fx.write("%d\n"%xs[i])
+        fy.write("%d\n"%ys[i])
+    fx.close()
+    fy.close()
+    result = [] 
+    for i in range(num_inputs):
+        result.append(0)
+        for j in range(num_inputs):
+            if xs[i] == ys[j]:
+                result[i] = xs[i]   
+    print("Expected value:")
+    for i in range(len(result)): 
+        #print("expected value: %d"%e)
+        print("index " + str(i) + ": " + str(result[i]))
 
 
 def gen_input(program, n, l):
@@ -78,7 +182,7 @@ if __name__ == "__main__":
         help="integer bit length")
     parser.add_argument('-l', default=10, type=int, 
         help="array length (for innerprod, xtabs)")
-    programs = ["mult3","innerprod","xtabs"]
+    programs = ["mult3","innerprod","xtabs","setIntersect", "setIntersectAlt", "setIntersectAlt2", "setIntersectAlt3"]
     parser.add_argument('-e', default="xtabs", choices = programs,
         help="program selection")
     args = parser.parse_args()
@@ -87,6 +191,18 @@ if __name__ == "__main__":
 
     if args.e == "mult3":
         gen_mult3_input(args.n)
+
+    elif args.e == "setIntersect":
+        gen_setIntersect_input(args.n, args.l)
+
+    elif args.e == "setIntersectAlt":
+        gen_setIntersectAlt_input(args.n, args.l)
+
+    elif args.e == "setIntersectAlt2":
+        gen_setIntersectAlt2_input(args.n, args.l)
+
+    elif args.e == "setIntersectAlt3":
+        gen_setIntersectAlt3_input(args.n, args.l)
 
     elif args.e == "innerprod":
         gen_input(args.e, args.n, args.l)
